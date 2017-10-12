@@ -10,7 +10,7 @@ namespace AdamIoC.InstanceManagement
 
         public IList<RegistrationInfoModel> Registrations { get; set; } = new List<RegistrationInfoModel>();
 
-        public TInterface GetInstance<TInterface>(params object[] constructorParameters)
+        public TInterface GetInstance<TInterface>()
         {
             var interfaceType = typeof(TInterface);
             var registrationInfoModel = Registrations.FirstOrDefault(registration => registration.Interface == interfaceType);
@@ -18,7 +18,7 @@ namespace AdamIoC.InstanceManagement
             {
                 throw new InformativeException(interfaceType);
             }
-            return (TInterface)Activator.CreateInstance(registrationInfoModel.Implementation, constructorParameters);
+            return (TInterface)Activator.CreateInstance(registrationInfoModel.Implementation);
         }
     }
 }

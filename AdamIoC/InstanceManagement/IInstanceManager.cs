@@ -10,6 +10,6 @@ namespace AdamIoC.InstanceManagement
     {
         ObjectLifeCycleType ObjectLifecycle { get; }
         IList<RegistrationInfoModel> Registrations { get; set; }
-        TInterface GetInstance<TInterface>(params object[] constructorParameters);
+        TInterface GetInstance<TInterface>();
     }
 }

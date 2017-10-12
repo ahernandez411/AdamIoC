@@ -10,7 +10,7 @@ namespace AdamIoC.InstanceManagement
         public ObjectLifeCycleType ObjectLifecycle => ObjectLifeCycleType.Singleton;
 
         public IList<RegistrationInfoModel> Registrations { get; set; } = new List<RegistrationInfoModel>();
-        public TInterface GetInstance<TInterface>(params object[] constructorParameters)
+        public TInterface GetInstance<TInterface>()
         {
             var interfaceType = typeof(TInterface);
             var registrationInfoModel = Registrations.FirstOrDefault(registration => registration.Interface == interfaceType);
@@ -24,7 +24,7 @@ namespace AdamIoC.InstanceManagement
             }
             else
             {
-                var @interface = Activator.CreateInstance(registrationInfoModel.Implementation, constructorParameters);
+                var @interface = Activator.CreateInstance(registrationInfoModel.Implementation);
                 instances[interfaceType] = @interface;
 
                 return (TInterface)@interface;
