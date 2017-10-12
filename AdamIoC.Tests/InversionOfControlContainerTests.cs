@@ -48,7 +48,7 @@ namespace AdamIoC.Tests
         [Fact]
         public void TryToResolveManButShouldFail()
         {
-            Assert.Throws<Exception>(() => 
+            Assert.Throws<InformativeException>(() => 
             {
                 InversionOfControlContainer.GetInstance<IHuman>();
             });
