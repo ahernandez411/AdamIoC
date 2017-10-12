@@ -18,7 +18,7 @@ namespace AdamIoC
             );
             if (instanceManager == null)
             {
-                throw new Exception($"Could not find instance manager for {typeof(TInterface).Name}");
+                throw new InformativeException(typeof(TInterface));
             }
             return instanceManager.GetInstance<TInterface>(constructorParameters);
         }

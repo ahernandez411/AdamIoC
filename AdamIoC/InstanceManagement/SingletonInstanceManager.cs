@@ -16,7 +16,7 @@ namespace AdamIoC.InstanceManagement
             var registrationInfoModel = Registrations.FirstOrDefault(registration => registration.Interface == interfaceType);
             if (registrationInfoModel == null)
             {
-                throw new KeyNotFoundException($"No implementation found for {interfaceType.Name}");
+                throw new InformativeException(interfaceType);
             }
             if (instances.ContainsKey(interfaceType))
             {

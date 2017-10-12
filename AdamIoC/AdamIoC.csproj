@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InformativeException.cs" />
     <Compile Include="InstanceManagement\IInstanceManager.cs" />
     <Compile Include="InversionOfControlContainer.cs" />
     <Compile Include="InstanceManagement\InstanceManagerFactory.cs" />

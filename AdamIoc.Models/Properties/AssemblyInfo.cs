@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AdamIoC.Console")]
+[assembly: AssemblyTitle("AdamIoc.SharedModels")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AdamIoC.Console")]
+[assembly: AssemblyProduct("AdamIoc.SharedModels")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b3fc7877-79a2-4990-bf85-9f37c2b31ce9")]
+[assembly: Guid("9a27c675-2dbf-46e0-ad1d-d1a66554270a")]
 
 // Version information for an assembly consists of the following four values:
 //

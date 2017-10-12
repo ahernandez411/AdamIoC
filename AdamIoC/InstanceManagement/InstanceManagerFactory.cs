@@ -17,7 +17,7 @@ namespace AdamIoC.InstanceManagement
                 case ObjectLifeCycleType.Transient:
                     return new TransientInstanceManager();
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new InformativeException("Unsupported ObjectLifeCycleType");
             }
         }
     }

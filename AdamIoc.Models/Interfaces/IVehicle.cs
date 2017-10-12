@@ -1,4 +1,6 @@
-﻿namespace AdamIoC.Console.Interfaces
+﻿using AdamIoC.Models.Enums;
+
+namespace AdamIoC.Models.Interfaces
 {
     public interface IVehicle
     {

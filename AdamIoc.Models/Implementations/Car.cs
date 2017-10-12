@@ -1,6 +1,7 @@
-﻿using AdamIoC.Console.Interfaces;
+﻿using AdamIoC.Models.Enums;
+using AdamIoC.Models.Interfaces;
 
-namespace AdamIoC.Console.Implementations
+namespace AdamIoC.Models.Implementations
 {
     public class Car : IVehicle
     {
