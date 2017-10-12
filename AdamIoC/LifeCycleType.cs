@@ -1,6 +1,6 @@
 ﻿namespace AdamIoC
 {
-    public enum ObjectLifeCycleType
+    public enum LifecycleType
     {
         Transient,
         Singleton

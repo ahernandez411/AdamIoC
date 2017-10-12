@@ -6,7 +6,7 @@ namespace AdamIoC
     {
         public Type Implementation { get; set; }
         public Type Interface { get; set; }
-        public ObjectLifeCycleType ObjectLifecycle { get; set; }
+        public LifecycleType ObjectLifecycle { get; set; }
 
         public override string ToString()
         {

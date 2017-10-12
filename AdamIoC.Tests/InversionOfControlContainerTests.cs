@@ -66,7 +66,7 @@ namespace AdamIoC.Tests
         {
             var container = new ContainerAdamIoC();
 
-            container.RegisterImplementation<IHuman, Man>(ObjectLifeCycleType.Singleton);
+            container.RegisterImplementation<IHuman, Man>(LifecycleType.Singleton);
 
             var human1 = container.GetInstance<IHuman>();
             var human2 = container.GetInstance<IHuman>();
@@ -95,7 +95,7 @@ namespace AdamIoC.Tests
         [Fact]
         public void TryToGetInstanceOfClassWithConstructorWhereNotAllParametersAreRegistered()
         {
-            Assert.Throws<InformativeException>(() =>
+            Assert.Throws<NotRegisteredException>(() =>
             {
                 var container = new ContainerAdamIoC();
 
@@ -111,7 +111,7 @@ namespace AdamIoC.Tests
         [Fact]
         public void TryToResolveHumanButShouldFail()
         {
-            Assert.Throws<InformativeException>(() =>
+            Assert.Throws<NotRegisteredException>(() =>
             {
                 var container = new ContainerAdamIoC();
                 container.GetInstance<IHuman>();

@@ -14,7 +14,7 @@ namespace AdamIoC
             return lifecycleInstanceManager.GetInstance<TInterface>();
         }
 
-        public void RegisterImplementation<TInterface, TImplementation>(ObjectLifeCycleType objectLifecycleType = ObjectLifeCycleType.Transient) where TImplementation : TInterface
+        public void RegisterImplementation<TInterface, TImplementation>(LifecycleType objectLifecycleType = LifecycleType.Transient) where TImplementation : TInterface
         {            
             var interfaceType = typeof(TInterface);
             var existingRegistration = registrations.FirstOrDefault(registration => registration.Interface == interfaceType);

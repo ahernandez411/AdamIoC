@@ -2,16 +2,16 @@
 
 namespace AdamIoC
 {
-    public class InformativeException : Exception
+    public class NotRegisteredException : Exception
     {
         private readonly Type interfaceType;
-        public InformativeException() : base()
+        public NotRegisteredException() : base()
         { }
 
-        public InformativeException(string message) : base()
+        public NotRegisteredException(string message) : base()
         { }
 
-        public InformativeException(Type interfaceType) 
+        public NotRegisteredException(Type interfaceType) 
         {
             this.interfaceType = interfaceType;
         }

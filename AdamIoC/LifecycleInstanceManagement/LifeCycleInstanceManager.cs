@@ -11,7 +11,7 @@ namespace AdamIoC.InstanceManagement
             this.registrations = registrations;
         }
 
-        public abstract ObjectLifeCycleType ObjectLifecycle { get; }
+        public abstract LifecycleType ObjectLifecycle { get; }
 
         public virtual TInterface GetInstance<TInterface>()
         {

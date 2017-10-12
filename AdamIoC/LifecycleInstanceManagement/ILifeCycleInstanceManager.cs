@@ -2,7 +2,7 @@
 {
     public interface ILifeCycleInstanceManager
     {
-        ObjectLifeCycleType ObjectLifecycle { get; }
+        LifecycleType ObjectLifecycle { get; }
         TInterface GetInstance<TInterface>();
     }
 }

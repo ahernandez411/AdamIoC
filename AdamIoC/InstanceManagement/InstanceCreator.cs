@@ -54,7 +54,7 @@ namespace AdamIoC.InstanceManagement
             var registration = registrations.FirstOrDefault(reg => reg.Interface == interfaceType);
             if (registration == null)
             {
-                throw new InformativeException(interfaceType);
+                throw new NotRegisteredException(interfaceType);
             }
             return registration;
         }

@@ -10,7 +10,7 @@ namespace AdamIoC.InstanceManagement
         public SingletonLifecycleInstanceManager(List<RegistrationInfoModel> registrations) : base(registrations)
         { }
 
-        public override ObjectLifeCycleType ObjectLifecycle => ObjectLifeCycleType.Singleton;
+        public override LifecycleType ObjectLifecycle => LifecycleType.Singleton;
 
         public override TInterface GetInstance<TInterface>()
         {

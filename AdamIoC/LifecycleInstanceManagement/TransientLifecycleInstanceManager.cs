@@ -9,6 +9,6 @@ namespace AdamIoC.InstanceManagement
         public TransientLifecycleInstanceManager(List<RegistrationInfoModel> registrations) : base(registrations)
         { }
 
-        public override ObjectLifeCycleType ObjectLifecycle => ObjectLifeCycleType.Transient;
+        public override LifecycleType ObjectLifecycle => LifecycleType.Transient;
     }
 }

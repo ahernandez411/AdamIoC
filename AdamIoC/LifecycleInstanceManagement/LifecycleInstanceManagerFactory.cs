@@ -11,17 +11,17 @@ namespace AdamIoC.InstanceManagement
             var existingRegistration = registrations.FirstOrDefault(reg => reg.Interface == interfaceType);
             if (existingRegistration == null)
             {
-                throw new InformativeException(interfaceType);
+                throw new NotRegisteredException(interfaceType);
             }
 
             switch (existingRegistration.ObjectLifecycle)
             {
-                case ObjectLifeCycleType.Singleton:
+                case LifecycleType.Singleton:
                     return new SingletonLifecycleInstanceManager(registrations);
-                case ObjectLifeCycleType.Transient:
+                case LifecycleType.Transient:
                     return new TransientLifecycleInstanceManager(registrations);
                 default:
-                    throw new InformativeException("Unsupported ObjectLifeCycleType");
+                    throw new NotRegisteredException("Unsupported ObjectLifeCycleType");
             }
         }
     }
