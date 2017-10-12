@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace AdamIoC
 {
-    public static class InversionOfControlContainer
+    public class InversionOfControlContainer
     {
-        private static Dictionary<ObjectLifeCycleType, List<IInstanceManager>> instanceManagers = new Dictionary<ObjectLifeCycleType, List<IInstanceManager>>();
+        private Dictionary<ObjectLifeCycleType, List<IInstanceManager>> instanceManagers = new Dictionary<ObjectLifeCycleType, List<IInstanceManager>>();
 
-        public static TInterface GetInstance<TInterface>(params object[] constructorParameters)
+        public TInterface GetInstance<TInterface>(params object[] constructorParameters)
         {
             var allInstanceManagers = instanceManagers.Values.SelectMany(item => item).ToList();
             var instanceManager = allInstanceManagers.FirstOrDefault(
@@ -23,7 +23,7 @@ namespace AdamIoC
             return instanceManager.GetInstance<TInterface>(constructorParameters);
         }
 
-        public static void RegisterImplementation<TInterface, TImplementation>(ObjectLifeCycleType objectLifecycleType = ObjectLifeCycleType.Transient) where TImplementation : TInterface
+        public void RegisterImplementation<TInterface, TImplementation>(ObjectLifeCycleType objectLifecycleType = ObjectLifeCycleType.Transient) where TImplementation : TInterface
         {
             var interfaceType = typeof(TInterface);
             var instanceManager = InstanceManagerFactory.GetInstanceManager(objectLifecycleType);

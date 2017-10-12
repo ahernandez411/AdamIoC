@@ -1,6 +1,5 @@
 ﻿using AdamIoC.Models.Implementations;
 using AdamIoC.Models.Interfaces;
-using System;
 using Xunit;
 
 namespace AdamIoC.Tests
@@ -8,49 +7,69 @@ namespace AdamIoC.Tests
     public class InversionOfControlContainerTests
     {
         [Fact]
-        public void ResolveCar()
+        public void RegisterMultipleAndGetInstances()
         {
-            InversionOfControlContainer.RegisterImplementation<IVehicle, Car>();
-            var vehicle = InversionOfControlContainer.GetInstance<IVehicle>();
+            var container = new InversionOfControlContainer();
+
+            container.RegisterImplementation<IHuman, Man>();
+            container.RegisterImplementation<IVehicle, Car>();
+
+            var vehicle = container.GetInstance<IVehicle>();
+            var human = container.GetInstance<IHuman>();
+
+            Assert.NotNull(vehicle);
+            Assert.NotNull(human);
+        }
+
+        [Fact]
+        public void ResolveVehicle()
+        {
+            var container = new InversionOfControlContainer();
+
+            container.RegisterImplementation<IVehicle, Car>();
+            var vehicle = container.GetInstance<IVehicle>();
 
             Assert.NotNull(vehicle);
         }
 
         [Fact]
-        public void ShowThatCarInstancesAreNotTheSame()
+        public void ShowThatHumanInstancesAreTheSame()
         {
-            InversionOfControlContainer.RegisterImplementation<IVehicle, Car>();
+            var container = new InversionOfControlContainer();
 
-            var vehicle1 = InversionOfControlContainer.GetInstance<IVehicle>();
-            var vehicle2 = InversionOfControlContainer.GetInstance<IVehicle>();
+            container.RegisterImplementation<IHuman, Man>(ObjectLifeCycleType.Singleton);
+
+            var human1 = container.GetInstance<IHuman>();
+            var human2 = container.GetInstance<IHuman>();
+
+            Assert.NotNull(human1);
+            Assert.NotNull(human2);
+
+            Assert.Equal(human1, human2);
+        }
+
+        [Fact]
+        public void ShowThatVehicleInstancesAreNotTheSame()
+        {
+            var container = new InversionOfControlContainer();
+
+            container.RegisterImplementation<IVehicle, Car>();
+
+            var vehicle1 = container.GetInstance<IVehicle>();
+            var vehicle2 = container.GetInstance<IVehicle>();
 
             Assert.NotNull(vehicle1);
             Assert.NotNull(vehicle2);
 
             Assert.NotEqual(vehicle1, vehicle2);
         }
-
-        [Fact]
-        public void ShowThatManInstancesAreTheSame()
-        {
-            InversionOfControlContainer.RegisterImplementation<IHuman, Man>(ObjectLifeCycleType.Singleton);
-
-            var man1 = InversionOfControlContainer.GetInstance<IHuman>();
-            var man2 = InversionOfControlContainer.GetInstance<IHuman>();
-
-            Assert.NotNull(man1);
-            Assert.NotNull(man2);
-
-            Assert.Equal(man1, man2);
-        }
-
-
         [Fact]
         public void TryToResolveManButShouldFail()
         {
-            Assert.Throws<InformativeException>(() => 
+            Assert.Throws<InformativeException>(() =>
             {
-                InversionOfControlContainer.GetInstance<IHuman>();
+                var container = new InversionOfControlContainer();
+                container.GetInstance<IHuman>();
             });
         }
     }
