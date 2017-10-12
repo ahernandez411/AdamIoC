@@ -61,13 +61,17 @@
     <Compile Include="Enums\VehicleType.cs" />
     <Compile Include="Implementations\Car.cs" />
     <Compile Include="Implementations\Company.cs" />
+    <Compile Include="Implementations\CompanyContactPerson.cs" />
     <Compile Include="Implementations\ContactInformation.cs" />
+    <Compile Include="Implementations\ContactName.cs" />
+    <Compile Include="Implementations\ContactPerson.cs" />
     <Compile Include="Implementations\Location.cs" />
     <Compile Include="Implementations\Man.cs" />
     <Compile Include="Interfaces\IContactInformation.cs" />
     <Compile Include="Interfaces\IHuman.cs" />
     <Compile Include="Interfaces\ICompany.cs" />
     <Compile Include="Interfaces\ILocation.cs" />
+    <Compile Include="Interfaces\IName.cs" />
     <Compile Include="Interfaces\IVehicle.cs" />
     <Compile Include="InversionOfControlContainerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

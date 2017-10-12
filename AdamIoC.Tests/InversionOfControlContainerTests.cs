@@ -21,6 +21,21 @@ namespace AdamIoC.Tests
         }
 
         [Fact]
+        public void GetInstanceOfClassWithConstructoThatContainsParametersAndOneOfItsConstructorParametersAlsoHasAConstructorParameter()
+        {
+            var container = new ContainerAdamIoC();
+
+            container.RegisterImplementation<IContactInformation, CompanyContactPerson>();
+            container.RegisterImplementation<IHuman, ContactPerson>();
+            container.RegisterImplementation<ILocation, Location>();
+            container.RegisterImplementation<IName, ContactName>();
+
+            var contactInformation = container.GetInstance<IContactInformation>();
+
+            Assert.NotNull(contactInformation);
+        }
+
+        [Fact]
         public void RegisterMultipleAndGetInstances()
         {
             var container = new ContainerAdamIoC();

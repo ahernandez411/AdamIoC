@@ -21,12 +21,31 @@ namespace AdamIoC.InstanceManagement
             else
             {
                 var instances = new List<object>();
-                foreach (var parameter in parameters)
-                {
-                    var registrationForParameter = FindRegistrationInfoModel(registrations, parameter.ParameterType);
-                    instances.Add(CreateInstance(registrationForParameter.Implementation));
-                }
+                GatherConstructorParameterInstances(registrations, instances, parameters);
                 return (TInterface)CreateInstance(registration.Implementation, instances.ToArray());
+            }
+        }
+
+        private void GatherConstructorParameterInstances(List<RegistrationInfoModel> registrations, List<object> instances, System.Reflection.ParameterInfo[] parameters)
+        {            
+            foreach (var parameter in parameters)
+            {
+                var registrationForParameter = FindRegistrationInfoModel(registrations, parameter.ParameterType);
+                var parameterConstructor = registrationForParameter.Implementation.GetConstructors().First();
+                var parameterConstructorArguments = parameterConstructor.GetParameters();
+                if (parameterConstructorArguments.Any())
+                {
+                    foreach (var parameterConstructorArgument in parameterConstructorArguments)
+                    {
+                        var parameterConstructorInstances = new List<object>();
+                        GatherConstructorParameterInstances(registrations, parameterConstructorInstances, parameterConstructorArguments);
+                        instances.Add(CreateInstance(registrationForParameter.Implementation, parameterConstructorInstances.ToArray()));
+                    }                    
+                }
+                else
+                {
+                    instances.Add(CreateInstance(registrationForParameter.Implementation));
+                }                
             }
         }
 
