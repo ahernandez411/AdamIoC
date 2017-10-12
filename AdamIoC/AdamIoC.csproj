@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="InformativeException.cs" />
     <Compile Include="InstanceManagement\IInstanceManager.cs" />
-    <Compile Include="InversionOfControlContainer.cs" />
+    <Compile Include="ContainerAdamIoC.cs" />
     <Compile Include="InstanceManagement\InstanceManagerFactory.cs" />
     <Compile Include="ObjectLifeCycleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

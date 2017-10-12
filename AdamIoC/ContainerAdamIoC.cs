@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AdamIoC
 {
-    public class InversionOfControlContainer
+    public class ContainerAdamIoC
     {
         private Dictionary<ObjectLifeCycleType, List<IInstanceManager>> instanceManagers = new Dictionary<ObjectLifeCycleType, List<IInstanceManager>>();
 

@@ -9,7 +9,7 @@ namespace AdamIoC.Tests
         [Fact]
         public void RegisterMultipleAndGetInstances()
         {
-            var container = new InversionOfControlContainer();
+            var container = new ContainerAdamIoC();
 
             container.RegisterImplementation<IHuman, Man>();
             container.RegisterImplementation<IVehicle, Car>();
@@ -24,7 +24,7 @@ namespace AdamIoC.Tests
         [Fact]
         public void ResolveVehicle()
         {
-            var container = new InversionOfControlContainer();
+            var container = new ContainerAdamIoC();
 
             container.RegisterImplementation<IVehicle, Car>();
             var vehicle = container.GetInstance<IVehicle>();
@@ -35,7 +35,7 @@ namespace AdamIoC.Tests
         [Fact]
         public void ShowThatHumanInstancesAreTheSame()
         {
-            var container = new InversionOfControlContainer();
+            var container = new ContainerAdamIoC();
 
             container.RegisterImplementation<IHuman, Man>(ObjectLifeCycleType.Singleton);
 
@@ -51,7 +51,7 @@ namespace AdamIoC.Tests
         [Fact]
         public void ShowThatVehicleInstancesAreNotTheSame()
         {
-            var container = new InversionOfControlContainer();
+            var container = new ContainerAdamIoC();
 
             container.RegisterImplementation<IVehicle, Car>();
 
@@ -68,7 +68,7 @@ namespace AdamIoC.Tests
         {
             Assert.Throws<InformativeException>(() =>
             {
-                var container = new InversionOfControlContainer();
+                var container = new ContainerAdamIoC();
                 container.GetInstance<IHuman>();
             });
         }
