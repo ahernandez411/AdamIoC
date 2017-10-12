@@ -5,9 +5,9 @@ namespace AdamIoC.Tests.Implementations
 {
     public class Location : ILocation
     {
-        public string Street { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string City { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string PostalCode { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string State { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public string PostalCode { get; set; }
+        public string State { get; set; }
     }
 }

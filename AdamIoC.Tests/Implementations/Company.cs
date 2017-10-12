@@ -14,6 +14,6 @@ namespace AdamIoC.Tests.Implementations
             this.location = location;
         }
 
-        public string CompanyName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string CompanyName { get; set; }
     }
 }
