@@ -6,44 +6,39 @@ namespace AdamIoC
 {
     public class ContainerAdamIoC
     {
-        private Dictionary<ObjectLifeCycleType, IInstanceManager> instanceManagers = new Dictionary<ObjectLifeCycleType, IInstanceManager>();
+        private List<RegistrationInfoModel> registrations = new List<RegistrationInfoModel>();
 
         public TInterface GetInstance<TInterface>()
         {
-            var interfaceType = typeof(TInterface);
-            var allInstanceManagers = instanceManagers.Values.ToList();
-
-            var instanceManager = allInstanceManagers.FirstOrDefault(manager => manager.Registrations.FirstOrDefault(registration => registration.Interface == interfaceType) != null);            
-            if (instanceManager == null)
-            {
-                throw new InformativeException(typeof(TInterface));
-            }
-            return instanceManager.GetInstance<TInterface>();
+            var lifecycleInstanceManager = LifecycleInstanceManagerFactory.GetLifecycleInstanceManager<TInterface>(registrations);
+            return lifecycleInstanceManager.GetInstance<TInterface>();
         }
 
         public void RegisterImplementation<TInterface, TImplementation>(ObjectLifeCycleType objectLifecycleType = ObjectLifeCycleType.Transient) where TImplementation : TInterface
         {
-            var interfaceType = typeof(TInterface);
             var registrationInfoModel = new RegistrationInfoModel
             {
                 Implementation = typeof(TImplementation),
-                Interface = typeof(TInterface)
+                Interface = typeof(TInterface),
+                ObjectLifecycle = objectLifecycleType
             };
-            if (!instanceManagers.ContainsKey(objectLifecycleType))
+
+            var interfaceType = typeof(TInterface);
+            var existingRegistration = registrations.FirstOrDefault(registration => registration.Interface == interfaceType);
+
+            if (existingRegistration != null)
             {
-                var instanceManager = InstanceManagerFactory.GetInstanceManager(objectLifecycleType);
-                instanceManager.Registrations.Add(registrationInfoModel);
-                instanceManagers[objectLifecycleType] = instanceManager;
+                existingRegistration.Implementation = typeof(TImplementation);
+                existingRegistration.ObjectLifecycle = objectLifecycleType;
             }
             else
             {
-                var instanceManager = instanceManagers[objectLifecycleType];
-                if (instanceManager.Registrations.Any(registration => registration.Interface == interfaceType))
+                registrations.Add(new RegistrationInfoModel
                 {
-                    // already registered
-                    return;
-                }
-                instanceManager.Registrations.Add(registrationInfoModel);
+                    Implementation = typeof(TImplementation),
+                    Interface = typeof(TInterface),
+                    ObjectLifecycle = objectLifecycleType
+                });
             }
         }
     }

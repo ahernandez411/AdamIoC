@@ -41,14 +41,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InformativeException.cs" />
-    <Compile Include="InstanceManagement\IInstanceManager.cs" />
+    <Compile Include="InstanceManagement\IInstanceCreator.cs" />
+    <Compile Include="InstanceManagement\InstanceCreatorFactory.cs" />
+    <Compile Include="LifecycleInstanceManagement\ILifecycleInstanceManager.cs" />
     <Compile Include="ContainerAdamIoC.cs" />
-    <Compile Include="InstanceManagement\InstanceManagerFactory.cs" />
+    <Compile Include="InstanceManagement\InstanceCreator.cs" />
+    <Compile Include="LifecycleInstanceManagement\LifecycleInstanceManagerFactory.cs" />
+    <Compile Include="LifecycleInstanceManagement\LifecycleInstanceManager.cs" />
     <Compile Include="ObjectLifeCycleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationInfoModel.cs" />
-    <Compile Include="InstanceManagement\SingletonInstanceManager.cs" />
-    <Compile Include="InstanceManagement\TransientInstanceManager.cs" />
+    <Compile Include="LifecycleInstanceManagement\SingletonLifecycleInstanceManager.cs" />
+    <Compile Include="LifecycleInstanceManagement\TransientLifecycleInstanceManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
