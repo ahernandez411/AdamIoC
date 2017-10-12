@@ -7,6 +7,20 @@ namespace AdamIoC.Tests
     public class InversionOfControlContainerTests
     {
         [Fact]
+        public void GetInstanceOfClassWithConstructorThatContainsParameters()
+        {
+            var container = new ContainerAdamIoC();
+
+            container.RegisterImplementation<ICompany, Company>();
+            container.RegisterImplementation<IContactInformation, ContactInformation>();
+            container.RegisterImplementation<ILocation, Location>();
+
+            var company = container.GetInstance<ICompany>();
+
+            Assert.NotNull(company);
+        }
+
+        [Fact]
         public void RegisterMultipleAndGetInstances()
         {
             var container = new ContainerAdamIoC();
@@ -64,6 +78,22 @@ namespace AdamIoC.Tests
             Assert.NotEqual(vehicle1, vehicle2);
         }
         [Fact]
+        public void TryToGetInstanceOfClassWithConstructorWhereNotAllParametersAreRegistered()
+        {
+            Assert.Throws<InformativeException>(() =>
+            {
+                var container = new ContainerAdamIoC();
+
+                container.RegisterImplementation<ICompany, Company>();
+                container.RegisterImplementation<IContactInformation, ContactInformation>();
+
+                var company = container.GetInstance<ICompany>();
+
+                Assert.NotNull(company);
+            });
+        }
+
+        [Fact]
         public void TryToResolveHumanButShouldFail()
         {
             Assert.Throws<InformativeException>(() =>
@@ -71,20 +101,6 @@ namespace AdamIoC.Tests
                 var container = new ContainerAdamIoC();
                 container.GetInstance<IHuman>();
             });
-        }
-
-        [Fact]
-        public void GetInstanceOfClassWithConstructorThatContainsParameters()
-        {
-            var container = new ContainerAdamIoC();
-
-            container.RegisterImplementation<ICompany, Company>();
-            container.RegisterImplementation<IContactInformation, ContactInformation>();
-            container.RegisterImplementation<ILocation, Location>();
-
-            var company = container.GetInstance<ICompany>();
-
-            Assert.NotNull(company);
         }
     }
 }
