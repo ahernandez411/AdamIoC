@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdamIoC
+namespace AdamIoC.Console
 {
-    class Program
+    public enum VehicleType
     {
-        static void Main(string[] args)
-        {
-        }
+        Car,
+        Boat,
+        Plane
     }
 }
