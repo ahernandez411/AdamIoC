@@ -16,7 +16,7 @@ var container = new ContainerAdamIoC();
 
 ### 2. Create the interface to implementation registrations
 ```
-container.RegisterImplementation<ISomeInterface, SomeImplementation>()
+container.RegisterImplementation<ISomeInterface, SomeImplementation>();
 ```
 
 ### 2a. Optional parameters to method to control how often the instance should be created when resolving the instance
@@ -26,9 +26,10 @@ Singleton - Share the same instance each time the code asks for it
 ```
 ### 2b. Supported was to use RegisterImplementation method
 ```
-container.RegisterImplementation<ISomeInterface, SomeImplementation>() // this will take on the default LifecycleType of Transient
-container.RegisterImplementation<ISomeInterface, SomeImplementation>(LifecycleType.Transient)
-container.RegisterImplementation<ISomeInterface, SomeImplementation>(LifecycleType.Singleton)
+// this will take on the default LifecycleType of Transient
+container.RegisterImplementation<ISomeInterface, SomeImplementation>(); 
+container.RegisterImplementation<ISomeInterface, SomeImplementation>(LifecycleType.Transient);
+container.RegisterImplementation<ISomeInterface, SomeImplementation>(LifecycleType.Singleton);
 ```
 
 ### 3. Getting an instance of an implementation
