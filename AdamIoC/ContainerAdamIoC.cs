@@ -1,5 +1,4 @@
 ﻿using AdamIoC.InstanceManagement;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,15 +6,14 @@ namespace AdamIoC
 {
     public class ContainerAdamIoC
     {
-        private Dictionary<ObjectLifeCycleType, List<IInstanceManager>> instanceManagers = new Dictionary<ObjectLifeCycleType, List<IInstanceManager>>();
+        private Dictionary<ObjectLifeCycleType, IInstanceManager> instanceManagers = new Dictionary<ObjectLifeCycleType, IInstanceManager>();
 
-        public TInterface GetInstance<TInterface>(params object[] constructorParameters)
+        public TInterface GetInstance<TInterface>()
         {
-            var allInstanceManagers = instanceManagers.Values.SelectMany(item => item).ToList();
-            var instanceManager = allInstanceManagers.FirstOrDefault(
-                manager => manager.Registrations.FirstOrDefault(
-                    registration => registration.Interface == typeof(TInterface)) != null
-            );
+            var interfaceType = typeof(TInterface);
+            var allInstanceManagers = instanceManagers.Values.ToList();
+
+            var instanceManager = allInstanceManagers.FirstOrDefault(manager => manager.Registrations.FirstOrDefault(registration => registration.Interface == interfaceType) != null);            
             if (instanceManager == null)
             {
                 throw new InformativeException(typeof(TInterface));
@@ -26,26 +24,26 @@ namespace AdamIoC
         public void RegisterImplementation<TInterface, TImplementation>(ObjectLifeCycleType objectLifecycleType = ObjectLifeCycleType.Transient) where TImplementation : TInterface
         {
             var interfaceType = typeof(TInterface);
-            var instanceManager = InstanceManagerFactory.GetInstanceManager(objectLifecycleType);
-            instanceManager.Registrations.Add(new RegistrationInfoModel
+            var registrationInfoModel = new RegistrationInfoModel
             {
                 Implementation = typeof(TImplementation),
                 Interface = typeof(TInterface)
-            });
+            };
             if (!instanceManagers.ContainsKey(objectLifecycleType))
             {
-                instanceManagers[objectLifecycleType] = new List<IInstanceManager>();
-                instanceManagers[objectLifecycleType].Add(instanceManager);
+                var instanceManager = InstanceManagerFactory.GetInstanceManager(objectLifecycleType);
+                instanceManager.Registrations.Add(registrationInfoModel);
+                instanceManagers[objectLifecycleType] = instanceManager;
             }
             else
             {
-                var lifeCycleInstances = instanceManagers[objectLifecycleType];
-                if (lifeCycleInstances.Any(manager => manager.Registrations.Any(registration => registration.Interface == interfaceType)))
+                var instanceManager = instanceManagers[objectLifecycleType];
+                if (instanceManager.Registrations.Any(registration => registration.Interface == interfaceType))
                 {
                     // already registered
                     return;
                 }
-                lifeCycleInstances.Add(instanceManager);
+                instanceManager.Registrations.Add(registrationInfoModel);
             }
         }
     }
