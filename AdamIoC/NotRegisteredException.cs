@@ -5,6 +5,7 @@ namespace AdamIoC
     public class NotRegisteredException : Exception
     {
         private readonly Type interfaceType;
+
         public NotRegisteredException() : base()
         { }
 
