@@ -15,14 +15,7 @@ namespace AdamIoC
         }
 
         public void RegisterImplementation<TInterface, TImplementation>(ObjectLifeCycleType objectLifecycleType = ObjectLifeCycleType.Transient) where TImplementation : TInterface
-        {
-            var registrationInfoModel = new RegistrationInfoModel
-            {
-                Implementation = typeof(TImplementation),
-                Interface = typeof(TInterface),
-                ObjectLifecycle = objectLifecycleType
-            };
-
+        {            
             var interfaceType = typeof(TInterface);
             var existingRegistration = registrations.FirstOrDefault(registration => registration.Interface == interfaceType);
 

@@ -64,13 +64,27 @@ namespace AdamIoC.Tests
             Assert.NotEqual(vehicle1, vehicle2);
         }
         [Fact]
-        public void TryToResolveManButShouldFail()
+        public void TryToResolveHumanButShouldFail()
         {
             Assert.Throws<InformativeException>(() =>
             {
                 var container = new ContainerAdamIoC();
                 container.GetInstance<IHuman>();
             });
+        }
+
+        [Fact]
+        public void GetInstanceOfClassWithConstructorThatContainsParameters()
+        {
+            var container = new ContainerAdamIoC();
+
+            container.RegisterImplementation<ICompany, Company>();
+            container.RegisterImplementation<IContactInformation, ContactInformation>();
+            container.RegisterImplementation<ILocation, Location>();
+
+            var company = container.GetInstance<ICompany>();
+
+            Assert.NotNull(company);
         }
     }
 }
