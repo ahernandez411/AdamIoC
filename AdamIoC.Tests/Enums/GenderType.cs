@@ -1,4 +1,4 @@
-﻿namespace AdamIoC.Models.Enums
+﻿namespace AdamIoC.Tests.Enums
 {
     public enum GenderType
     {

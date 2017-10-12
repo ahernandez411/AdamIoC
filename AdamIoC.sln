@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdamIoC", "AdamIoC\AdamIoC.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdamIoC.Tests", "AdamIoC.Tests\AdamIoC.Tests.csproj", "{B341E11D-9213-495C-82B6-A3A2677CA3DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdamIoc.Models", "AdamIoc.Models\AdamIoc.Models.csproj", "{9A27C675-2DBF-46E0-AD1D-D1A66554270A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{6191E7BB-54B1-4527-A87E-FCC40A54341F}"
 	ProjectSection(SolutionItems) = preProject
 		Requirements.txt = Requirements.txt
@@ -28,10 +26,6 @@ Global
 		{B341E11D-9213-495C-82B6-A3A2677CA3DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B341E11D-9213-495C-82B6-A3A2677CA3DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B341E11D-9213-495C-82B6-A3A2677CA3DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A27C675-2DBF-46E0-AD1D-D1A66554270A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A27C675-2DBF-46E0-AD1D-D1A66554270A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A27C675-2DBF-46E0-AD1D-D1A66554270A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A27C675-2DBF-46E0-AD1D-D1A66554270A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,5 @@
-﻿using AdamIoC.Models.Implementations;
-using AdamIoC.Models.Interfaces;
+﻿using AdamIoC.Tests.Implementations;
+using AdamIoC.Tests.Interfaces;
 using Xunit;
 
 namespace AdamIoC.Tests

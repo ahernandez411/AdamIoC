@@ -1,6 +1,6 @@
-﻿using AdamIoC.Models.Enums;
+﻿using AdamIoC.Tests.Enums;
 
-namespace AdamIoC.Models.Interfaces
+namespace AdamIoC.Tests.Interfaces
 {
     public interface IHuman
     {

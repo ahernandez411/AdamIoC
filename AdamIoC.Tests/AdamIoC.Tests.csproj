@@ -57,6 +57,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\GenderType.cs" />
+    <Compile Include="Enums\VehicleType.cs" />
+    <Compile Include="Implementations\Car.cs" />
+    <Compile Include="Implementations\Man.cs" />
+    <Compile Include="Interfaces\IHuman.cs" />
+    <Compile Include="Interfaces\IVehicle.cs" />
     <Compile Include="InversionOfControlContainerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,10 +73,6 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdamIoc.Models\AdamIoc.Models.csproj">
-      <Project>{9a27c675-2dbf-46e0-ad1d-d1a66554270a}</Project>
-      <Name>AdamIoc.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AdamIoC\AdamIoC.csproj">
       <Project>{c6dd9454-9fcd-401c-8a35-14aadd3f4eda}</Project>
       <Name>AdamIoC</Name>

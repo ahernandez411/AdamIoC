@@ -1,7 +1,7 @@
-﻿using AdamIoC.Models.Enums;
-using AdamIoC.Models.Interfaces;
+﻿using AdamIoC.Tests.Enums;
+using AdamIoC.Tests.Interfaces;
 
-namespace AdamIoC.Models.Implementations
+namespace AdamIoC.Tests.Implementations
 {
     public class Car : IVehicle
     {
