@@ -20,7 +20,7 @@ namespace AdamIoC
             {
                 throw new InformativeException(typeof(TInterface));
             }
-            return instanceManager.GetInstance<TInterface>(constructorParameters);
+            return instanceManager.GetInstance<TInterface>();
         }
 
         public void RegisterImplementation<TInterface, TImplementation>(ObjectLifeCycleType objectLifecycleType = ObjectLifeCycleType.Transient) where TImplementation : TInterface
