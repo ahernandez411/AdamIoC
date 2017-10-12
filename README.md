@@ -17,6 +17,7 @@ var container = new ContainerAdamIoC();
 ### 2. Create the interface to implementation registrations
 ```
 container.RegisterImplementation<ISomeInterface, SomeImplementation>();
+...
 ```
 
 ### 2a. Optional parameters to method to control how often the instance should be created when resolving the instance
