@@ -21,7 +21,7 @@ namespace AdamIoC.InstanceManagement
                 case LifecycleType.Transient:
                     return new TransientLifecycleInstanceManager(registrations);
                 default:
-                    throw new NotRegisteredException("Unsupported ObjectLifeCycleType");
+                    throw new NotRegisteredException("Unsupported LifeCycleType");
             }
         }
     }
