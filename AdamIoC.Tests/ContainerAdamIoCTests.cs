@@ -4,7 +4,7 @@ using Xunit;
 
 namespace AdamIoC.Tests
 {
-    public class InversionOfControlContainerTests
+    public class ContainerAdamIoCTests
     {
         [Fact]
         public void GetInstanceOfClassWithConstructorThatContainsParameters()

@@ -73,7 +73,7 @@
     <Compile Include="Interfaces\ILocation.cs" />
     <Compile Include="Interfaces\IName.cs" />
     <Compile Include="Interfaces\IVehicle.cs" />
-    <Compile Include="InversionOfControlContainerTests.cs" />
+    <Compile Include="ContainerAdamIoCTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
