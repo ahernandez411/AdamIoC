@@ -22,7 +22,7 @@ container.RegisterImplementation<ISomeInterface, SomeImplementation>();
 
 ### 2a. Optional parameters to method to control how often the instance should be created when resolving the instance
 ```
-Tranient - Create a new instance every time a new instance is called for
+Transient - Create a new instance every time a new instance is called for
 Singleton - Share the same instance each time the code asks for it
 ```
 ### 2b. Supported was to use RegisterImplementation method
