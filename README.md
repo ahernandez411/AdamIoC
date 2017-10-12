@@ -7,7 +7,7 @@ In order to use AdamIoC you need to pull down the source code, build it in visua
 ### Prerequisites 
 The project depends on .NET 4.6.1.
 
-## Start usin AdamIoC
+## Start using AdamIoC
 
 ### 1. Make an instance of the ContainerAdamIoC class.
 ```
