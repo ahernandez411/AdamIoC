@@ -10,7 +10,7 @@ namespace AdamIoC
 
         public override string ToString()
         {
-            return $"RegisteredImplementation<{Interface.Name}, {Implementation.Name}>({ObjectLifecycle})";
+            return $"RegisterImplementation<{Interface.Name}, {Implementation.Name}>(LifecycleType.{ObjectLifecycle})";
         }
     }
 }
