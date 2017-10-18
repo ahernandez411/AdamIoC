@@ -1,0 +1,4 @@
+﻿namespace AdamIoC.TestGenerator.GeneratedModels
+{
+    [[GeneratedCode]]
+}
