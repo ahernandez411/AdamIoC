@@ -1,0 +1,20 @@
+﻿using AdamIoC.TestGenerator.GeneratedModels;
+using Xunit;
+
+namespace AdamIoC.TestGenerator
+{
+    public class LargeResolverTests
+    {
+        [Fact]
+        public void ResolveLargeAmountOfSingletons()
+        {
+            [[Singletons]]
+        }
+
+        [Fact]
+        public void ResolveLargeAmountOfTransients()
+        {
+            [[Transients]]
+        }
+    }
+}
