@@ -1015,9 +1015,10 @@ namespace AdamIoC.TestGenerator
 #endregion Singletons
 
             var instance = container.GetInstance<IMyInterface0>();
+            var instance10 = container.GetInstance<IMyInterface10>();
 
             Assert.NotNull(instance);
-
+            Assert.NotNull(instance10);
         }
 
         [Fact]

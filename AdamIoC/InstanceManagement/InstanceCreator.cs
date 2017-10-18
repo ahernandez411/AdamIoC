@@ -6,7 +6,7 @@ namespace AdamIoC.InstanceManagement
 {
     public class InstanceCreator : IInstanceCreator
     {
-        private Dictionary<Type, Lazy<object>> resolvedInstances = new Dictionary<Type, Lazy<object>>();
+        private static Dictionary<Type, Lazy<object>> resolvedInstances = new Dictionary<Type, Lazy<object>>();
 
         public TInterface GetInstance<TInterface>(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations)
         {
@@ -16,8 +16,12 @@ namespace AdamIoC.InstanceManagement
 
             var parameters = constructor.GetParameters();
 
-            if (!parameters.Any())
+            if (resolvedInstances.ContainsKey(registration.Implementation))
             {
+                return (TInterface)resolvedInstances[registration.Implementation].Value;
+            }
+            else if (!parameters.Any())
+            {                
                 return (TInterface)CreateInstance(registration.Implementation);
             }
             else
@@ -33,7 +37,7 @@ namespace AdamIoC.InstanceManagement
             foreach (var parameter in parameters)
             {
                 var registrationForParameter = FindRegistrationInfoModel(registrations, parameter.ParameterType);
-                var implementationType = registrationForParameter.Implementation.GetType();
+                var implementationType = registrationForParameter.Implementation;
                 if (resolvedInstances.ContainsKey(implementationType))
                 {
                     instances.Add(resolvedInstances[implementationType]);
