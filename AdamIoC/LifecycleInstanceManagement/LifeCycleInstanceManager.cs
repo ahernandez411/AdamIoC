@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AdamIoC.InstanceManagement
 {
     public abstract class LifeCycleInstanceManager : ILifeCycleInstanceManager
     {
-        private readonly List<RegistrationInfoModel> registrations;
+        private readonly Dictionary<Type, Lazy<RegistrationInfoModel>> registrations;
 
-        public LifeCycleInstanceManager(List<RegistrationInfoModel> registrations)
+        public LifeCycleInstanceManager(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations)
         {
             this.registrations = registrations;
         }

@@ -1,19 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AdamIoC.InstanceManagement
 {
     public static class LifecycleInstanceManagerFactory
     {
-        public static ILifeCycleInstanceManager GetLifecycleInstanceManager<TInterface>(List<RegistrationInfoModel> registrations)
+        public static ILifeCycleInstanceManager GetLifecycleInstanceManager<TInterface>(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations)
         {
             var interfaceType = typeof(TInterface);
-            var existingRegistration = registrations.FirstOrDefault(reg => reg.Interface == interfaceType);
-            if (existingRegistration == null)
+            if (!registrations.ContainsKey(interfaceType))
             {
                 throw new NotRegisteredException(interfaceType);
             }
-
+            var existingRegistration = registrations[interfaceType].Value;
             switch (existingRegistration.ObjectLifecycle)
             {
                 case LifecycleType.Singleton:

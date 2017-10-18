@@ -6,11 +6,13 @@ namespace AdamIoC.InstanceManagement
 {
     public class InstanceCreator : IInstanceCreator
     {
-        public TInterface GetInstance<TInterface>(List<RegistrationInfoModel> registrations)
+        private Dictionary<Type, Lazy<object>> resolvedInstances = new Dictionary<Type, Lazy<object>>();
+
+        public TInterface GetInstance<TInterface>(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations)
         {
             var interfaceType = typeof(TInterface);
             RegistrationInfoModel registration = FindRegistrationInfoModel(registrations, interfaceType);
-            var constructor = registration.Implementation.GetConstructors().First();
+            var constructor = registration.Implementation.SmallestConstructor();
 
             var parameters = constructor.GetParameters();
 
@@ -26,42 +28,51 @@ namespace AdamIoC.InstanceManagement
             }
         }
 
-        private void GatherConstructorParameterInstances(List<RegistrationInfoModel> registrations, List<object> instances, System.Reflection.ParameterInfo[] parameters)
+        private void GatherConstructorParameterInstances(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations, List<object> instances, System.Reflection.ParameterInfo[] parameters)
         {            
             foreach (var parameter in parameters)
             {
                 var registrationForParameter = FindRegistrationInfoModel(registrations, parameter.ParameterType);
-                var parameterConstructor = registrationForParameter.Implementation.GetConstructors().First();
-                var parameterConstructorArguments = parameterConstructor.GetParameters();
-                if (parameterConstructorArguments.Any())
+                var implementationType = registrationForParameter.Implementation.GetType();
+                if (resolvedInstances.ContainsKey(implementationType))
                 {
-                    foreach (var parameterConstructorArgument in parameterConstructorArguments)
-                    {
-                        var parameterConstructorInstances = new List<object>();
-                        GatherConstructorParameterInstances(registrations, parameterConstructorInstances, parameterConstructorArguments);
-                        instances.Add(CreateInstance(registrationForParameter.Implementation, parameterConstructorInstances.ToArray()));
-                    }                    
+                    instances.Add(resolvedInstances[implementationType]);
                 }
                 else
                 {
-                    instances.Add(CreateInstance(registrationForParameter.Implementation));
+                    var parameterConstructor = registrationForParameter.Implementation.SmallestConstructor();
+                    var parameterConstructorArguments = parameterConstructor.GetParameters();
+                    if (parameterConstructorArguments.Any())
+                    {
+                        foreach (var parameterConstructorArgument in parameterConstructorArguments)
+                        {
+                            var parameterConstructorInstances = new List<object>();
+                            GatherConstructorParameterInstances(registrations, parameterConstructorInstances, parameterConstructorArguments);
+                            instances.Add(CreateInstance(registrationForParameter.Implementation, parameterConstructorInstances.ToArray()));
+                        }
+                    }
+                    else
+                    {
+                        instances.Add(CreateInstance(registrationForParameter.Implementation));
+                    }
                 }                
             }
         }
 
-        private static RegistrationInfoModel FindRegistrationInfoModel(List<RegistrationInfoModel> registrations, Type interfaceType)
+        private static RegistrationInfoModel FindRegistrationInfoModel(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations, Type interfaceType)
         {
-            var registration = registrations.FirstOrDefault(reg => reg.Interface == interfaceType);
-            if (registration == null)
+            if (!registrations.ContainsKey(interfaceType))
             {
                 throw new NotRegisteredException(interfaceType);
             }
-            return registration;
+            return registrations[interfaceType].Value;
         }
 
         private object CreateInstance(Type type, params object[] parameters)
         {
-            return Activator.CreateInstance(type, parameters.Any() ? parameters : null);
+            var instance = Activator.CreateInstance(type, parameters.Any() ? parameters : null);
+            resolvedInstances.Add(instance.GetType(), new Lazy<object>(() => instance, isThreadSafe: true));
+            return instance;
         }
     }
 }

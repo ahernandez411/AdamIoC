@@ -74,7 +74,7 @@ namespace AdamIoC.Tests
             Assert.NotNull(human1);
             Assert.NotNull(human2);
 
-            Assert.Equal(human1, human2);
+            Assert.Same(human1, human2);
         }
 
         [Fact]

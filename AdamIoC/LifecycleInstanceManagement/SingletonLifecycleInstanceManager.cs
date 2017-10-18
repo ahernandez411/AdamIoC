@@ -5,9 +5,9 @@ namespace AdamIoC.InstanceManagement
 {
     public class SingletonLifecycleInstanceManager : LifeCycleInstanceManager
     {
-        private static Dictionary<Type, object> instances = new Dictionary<Type, object>();
+        private static Dictionary<Type, Lazy<object>> instances = new Dictionary<Type, Lazy<object>>();
 
-        public SingletonLifecycleInstanceManager(List<RegistrationInfoModel> registrations) : base(registrations)
+        public SingletonLifecycleInstanceManager(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations) : base(registrations)
         { }
 
         public override LifecycleType ObjectLifecycle => LifecycleType.Singleton;
@@ -15,16 +15,12 @@ namespace AdamIoC.InstanceManagement
         public override TInterface GetInstance<TInterface>()
         {
             var interfaceType = typeof(TInterface);
-            if (instances.ContainsKey(interfaceType))
-            {
-                return (TInterface)instances[interfaceType];
-            }
-            else
+            if (!instances.ContainsKey(interfaceType))
             {
                 var instance = base.GetInstance<TInterface>();
-                instances[interfaceType] = instance;
-                return instance;
-            }            
+                instances.Add(interfaceType, new Lazy<object>(() => instance, isThreadSafe: true));
+            }
+            return (TInterface)instances[interfaceType].Value;
         }
     }
 }

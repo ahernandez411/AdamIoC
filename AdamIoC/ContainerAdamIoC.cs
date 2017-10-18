@@ -1,4 +1,5 @@
 ﻿using AdamIoC.InstanceManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,7 +7,7 @@ namespace AdamIoC
 {
     public class ContainerAdamIoC
     {
-        private List<RegistrationInfoModel> registrations = new List<RegistrationInfoModel>();
+        private Dictionary<Type, Lazy<RegistrationInfoModel>> registrations = new Dictionary<Type, Lazy<RegistrationInfoModel>>();
 
         public TInterface GetInstance<TInterface>()
         {
@@ -17,21 +18,25 @@ namespace AdamIoC
         public void RegisterImplementation<TInterface, TImplementation>(LifecycleType objectLifecycleType = LifecycleType.Transient) where TImplementation : TInterface
         {            
             var interfaceType = typeof(TInterface);
-            var existingRegistration = registrations.FirstOrDefault(registration => registration.Interface == interfaceType);
-
-            if (existingRegistration != null)
+            if (!registrations.ContainsKey(interfaceType))
             {
-                existingRegistration.Implementation = typeof(TImplementation);
-                existingRegistration.ObjectLifecycle = objectLifecycleType;
+                registrations.Add(interfaceType, new Lazy<RegistrationInfoModel>(
+                    () =>
+                    {
+                        return new RegistrationInfoModel
+                        {
+                            Implementation = typeof(TImplementation),
+                            Interface = typeof(TInterface),
+                            ObjectLifecycle = objectLifecycleType
+                        };
+                    }, isThreadSafe: true)
+                );
             }
             else
             {
-                registrations.Add(new RegistrationInfoModel
-                {
-                    Implementation = typeof(TImplementation),
-                    Interface = typeof(TInterface),
-                    ObjectLifecycle = objectLifecycleType
-                });
+                var existingRegistration = registrations[interfaceType].Value;
+                existingRegistration.Implementation = typeof(TImplementation);
+                existingRegistration.ObjectLifecycle = objectLifecycleType;
             }
         }
     }
