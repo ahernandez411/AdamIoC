@@ -7,6 +7,23 @@ namespace AdamIoC.Tests
     public class ContainerAdamIoCTests
     {
         [Fact]
+        public void CreateSeparateContainersUsingSameInterfacesWithDifferentImplementations()
+        {
+            var container1 = new ContainerAdamIoC();
+            container1.RegisterImplementation<IHuman, Man>();
+
+            var container2 = new ContainerAdamIoC();
+            container2.RegisterImplementation<IHuman, ContactPerson>();
+            container2.RegisterImplementation<IName, ContactName>();
+
+            var instance1 = container1.GetInstance<IHuman>();
+            var instance2 = container2.GetInstance<IHuman>();
+
+            Assert.True(instance1 is Man);
+            Assert.True(instance2 is ContactPerson);
+        }
+
+        [Fact]
         public void GetInstanceOfClassWithConstructorThatContainsParameters()
         {
             var container = new ContainerAdamIoC();
@@ -92,6 +109,7 @@ namespace AdamIoC.Tests
 
             Assert.NotEqual(vehicle1, vehicle2);
         }
+
         [Fact]
         public void TryToGetInstanceOfClassWithConstructorWhereNotAllParametersAreRegistered()
         {
