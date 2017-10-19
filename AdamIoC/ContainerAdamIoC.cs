@@ -1,7 +1,6 @@
 ﻿using AdamIoC.InstanceManagement;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AdamIoC
 {
@@ -33,7 +32,7 @@ namespace AdamIoC
                         {
                             Implementation = typeof(TImplementation),
                             Interface = typeof(TInterface),
-                            ObjectLifecycle = objectLifecycleType
+                            Lifecycle = objectLifecycleType
                         };
                     }, isThreadSafe: true)
                 );
@@ -42,7 +41,7 @@ namespace AdamIoC
             {
                 var existingRegistration = registrations[interfaceType].Value;
                 existingRegistration.Implementation = typeof(TImplementation);
-                existingRegistration.ObjectLifecycle = objectLifecycleType;
+                existingRegistration.Lifecycle = objectLifecycleType;
             }
         }
     }

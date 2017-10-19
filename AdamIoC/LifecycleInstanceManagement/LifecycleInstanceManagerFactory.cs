@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AdamIoC.InstanceManagement
 {
@@ -15,6 +14,7 @@ namespace AdamIoC.InstanceManagement
             {
                 throw new NotRegisteredException(interfaceType);
             }
+            var existingRegistration = registrations[interfaceType].Value;
             var lifecycle = existingRegistration.Lifecycle;
             if (managers.ContainsKey(lifecycle))
             {

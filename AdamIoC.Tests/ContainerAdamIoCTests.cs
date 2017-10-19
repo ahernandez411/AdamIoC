@@ -21,7 +21,7 @@ namespace AdamIoC.Tests
         }
 
         [Fact]
-        public void GetInstanceOfClassWithConstructoThatContainsParametersAndOneOfItsConstructorParametersAlsoHasAConstructorParameter()
+        public void GetInstanceOfClassWithConstructorThatContainsParametersAndOneOfItsConstructorParametersAlsoHasAConstructorParameter()
         {
             var container = new ContainerAdamIoC();
 

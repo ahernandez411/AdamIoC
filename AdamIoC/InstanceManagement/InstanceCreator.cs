@@ -6,7 +6,7 @@ namespace AdamIoC.InstanceManagement
 {
     public class InstanceCreator : IInstanceCreator
     {
-        private static Dictionary<Type, Lazy<object>> resolvedInstances = new Dictionary<Type, Lazy<object>>();
+        private Dictionary<Type, Lazy<object>> resolvedInstances = new Dictionary<Type, Lazy<object>>();
 
         public TInterface GetInstance<TInterface>(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations)
         {
