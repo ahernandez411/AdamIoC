@@ -6,11 +6,11 @@ namespace AdamIoC
     {
         public Type Implementation { get; set; }
         public Type Interface { get; set; }
-        public LifecycleType ObjectLifecycle { get; set; }
+        public LifecycleType Lifecycle { get; set; }
 
         public override string ToString()
         {
-            return $"RegisterImplementation<{Interface.Name}, {Implementation.Name}>(LifecycleType.{ObjectLifecycle})";
+            return $"RegisterImplementation<{Interface.Name}, {Implementation.Name}>(LifecycleType.{Lifecycle})";
         }
     }
 }

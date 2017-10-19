@@ -1,10 +1,18 @@
-﻿namespace AdamIoC.InstanceManagement
+﻿using System;
+
+namespace AdamIoC.InstanceManagement
 {
-    public static class InstanceCreatorFactory
+    public class InstanceCreatorFactory
     {
-        public static IInstanceCreator GetInstanceCreator()
+        private Lazy<IInstanceCreator> instanceCreator;
+
+        public IInstanceCreator GetInstanceCreator()
         {
-            return new InstanceCreator();
+            if (instanceCreator == null)
+            {
+                instanceCreator = new Lazy<IInstanceCreator>(() => new InstanceCreator());
+            }
+            return instanceCreator.Value;
         }
     }
 }

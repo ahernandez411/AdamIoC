@@ -5,7 +5,7 @@ namespace AdamIoC.InstanceManagement
 {
     public class SingletonLifecycleInstanceManager : LifeCycleInstanceManager
     {
-        private static Dictionary<Type, Lazy<object>> instances = new Dictionary<Type, Lazy<object>>();
+        private Dictionary<Type, Lazy<object>> instances = new Dictionary<Type, Lazy<object>>();
 
         public SingletonLifecycleInstanceManager(Dictionary<Type, Lazy<RegistrationInfoModel>> registrations) : base(registrations)
         { }

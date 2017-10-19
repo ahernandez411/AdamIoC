@@ -7,11 +7,17 @@ namespace AdamIoC
 {
     public class ContainerAdamIoC
     {
+        private readonly LifecycleInstanceManagerFactory lifecycleInstanceManagerFactory;
         private Dictionary<Type, Lazy<RegistrationInfoModel>> registrations = new Dictionary<Type, Lazy<RegistrationInfoModel>>();
+
+        public ContainerAdamIoC()
+        {
+            lifecycleInstanceManagerFactory = new LifecycleInstanceManagerFactory();
+        }
 
         public TInterface GetInstance<TInterface>()
         {
-            var lifecycleInstanceManager = LifecycleInstanceManagerFactory.GetLifecycleInstanceManager<TInterface>(registrations);
+            var lifecycleInstanceManager = lifecycleInstanceManagerFactory.GetLifecycleInstanceManager<TInterface>(registrations);
             return lifecycleInstanceManager.GetInstance<TInterface>();
         }
 
